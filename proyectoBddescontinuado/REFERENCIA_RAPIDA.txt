@@ -1,0 +1,225 @@
+# REFERENCIA RÁPIDA - Guía de 2 Minutos
+
+## ?? Lo Que Necesitas Hacer YA
+
+### 1. CONFIGURAR CONEXIÓN (1 minuto)
+
+Abre: **`DATOS\clsConexion.cs`** línea 7
+
+Busca esto:
+```csharp
+private string cadenaConexion = "Server=SERVIDOR;Database=BASEDATOS;User Id=USUARIO;Password=CONTRASEÑA;";
+```
+
+Reemplaza con TU servidor, por ejemplo:
+```csharp
+// Si tienes SQL Server Express instalado localmente:
+private string cadenaConexion = "Server=.\\SQLEXPRESS;Database=ProducBD;Integrated Security=true;";
+
+// O si tienes credenciales:
+private string cadenaConexion = "Server=localhost;Database=MiBaseDatos;User Id=sa;Password=MiPassword;";
+```
+
+### 2. CREAR TABLA EN BD (1 minuto)
+
+1. Abre **SQL Server Management Studio**
+2. Copia TODO el contenido de: **`SCRIPT_BD.sql`**
+3. Pega en una nueva query
+4. Presiona: **F5** (ejecutar)
+5. ? Listo
+
+---
+
+## ?? Usar la Aplicación
+
+```
+[Inicia la aplicación]
+        ?
+[DataGridView se llena automáticamente]
+        ?
+[Para buscar: Escribe código + ENTER]
+        ?
+[Para descontinuar: Selecciona fila + Click botón]
+```
+
+---
+
+## ?? Estructura Visual
+
+```
+Tu código     Tu código  Tu código
+    ?        ?  ?
+FrmLista.cs    ??   clsServicioProductos.cs
+                    ?
+clsDaoProductos.cs
+   ?
+        clsConexion.cs
+        ?
+ SQL SERVER
+```
+
+---
+
+## ?? Cinco Funciones Principales
+
+| Función | Ubicación | Hace |
+|---------|-----------|------|
+| `CargarProductos()` | FrmLista.cs | Llena la tabla |
+| `ObtenerProductoPorCodigo()` | clsDaoProductos.cs | Busca producto |
+| `DescontinuarProducto()` | clsDaoProductos.cs | Marca como descontinuado |
+| `BuscarYSeleccionarProducto()` | clsServicioProductos.cs | Busca y selecciona |
+| `LlenarProductos()` | clsLlenarDataGridView.cs | Llena DataGridView |
+
+---
+
+## ? Checklist de Configuración
+
+```
+? 1. Modificar cadena de conexión en clsConexion.cs
+? 2. Ejecutar SCRIPT_BD.sql en SQL Server
+? 3. Verificar que la tabla Productos se creó
+? 4. Compilar (Ctrl+Shift+B)
+? 5. Ejecutar (F5)
+? 6. Ver que carga productos
+? 7. Probar buscar (escribe código + ENTER)
+? 8. Probar descontinuar
+```
+
+---
+
+## ?? Si Algo Falla
+
+| Problema | Solución |
+|----------|----------|
+| Error de conexión | Verifica cadena de conexión |
+| "Tabla no existe" | Ejecuta SCRIPT_BD.sql completo |
+| "No hay datos" | Inserta datos con INSERT en SQL |
+| Error al compilar | Verifica namespaces en using |
+| DataGridView vacío | Verifica conexión y datos en BD |
+
+---
+
+## ?? Documentos Importantes
+
+| Documento | Leer si... |
+|-----------|-----------|
+| **README.md** | Quieres entender el proyecto |
+| **INICIO_RAPIDO.md** | ? TÚ ESTÁS AQUÍ |
+| **CONFIGURACION.md** | Necesitas detalles de setup |
+| **EJEMPLOS_USO.md** | Quieres copiar código |
+| **ARQUITECTURA.md** | Quieres entender la estructura |
+
+---
+
+## ?? Código Mínimo Requerido
+
+### En SQL Server
+```sql
+-- Ejecuta SCRIPT_BD.sql (ya está hecho)
+```
+
+### En C#
+```csharp
+// Solo modifica ESTO en clsConexion.cs:
+private string cadenaConexion = "TU_CONEXION_AQUI";
+```
+
+Eso es todo. ?
+
+---
+
+## ?? Clases y Métodos
+
+```
+? clsConexion
+   - AbrirConexion()
+   - CerrarConexion()
+
+? clsDaoProductos
+   - ObtenerProductosActivos()
+   - ObtenerProductoPorCodigo(codigo)
+   - DescontinuarProducto(id)
+
+? clsProductos
+   - Constructor()
+   - Properties (id, nombre, precio, etc)
+
+? clsServicioProductos
+   - BuscarYSeleccionarProducto()
+   - DescontinuarYRecargar()
+
+? FrmLista
+- CargarProductos()
+   - btnDescontinuar_Click()
+   - txtBarras_KeyUp()
+```
+
+---
+
+## ?? EMPIEZA AHORA
+
+### Paso 1 (2 min)
+```
+Abre: DATOS\clsConexion.cs
+Modifica: Línea 7 (cadena de conexión)
+```
+
+### Paso 2 (2 min)
+```
+Abre: SQL Server Management Studio
+Ejecuta: SCRIPT_BD.sql
+```
+
+### Paso 3 (30 seg)
+```
+Compila: Ctrl+Shift+B
+Ejecuta: F5
+```
+
+### ¡LISTO! ??
+
+---
+
+## ?? Mensajes Que Verás
+
+? **Exitoso:**
+- "Producto encontrado: [nombre]"
+- "Producto descontinuado exitosamente"
+- DataGridView lleno de productos
+
+? **Error:**
+- "Producto NO encontrado"
+- "Error al conectar"
+- "Seleccione un producto"
+
+---
+
+## ?? Datos de Prueba
+
+El script SQL incluye 10 productos listos para probar:
+- Laptop, Mouse, Teclado, Monitor, Hub USB, Webcam, Auriculares, Tablet, SSD, Cable
+
+Códigos para probar:
+```
+LAP-DEL-XPS-001
+MOU-LOG-MX-001
+TEC-MEC-001
+```
+
+---
+
+## ?? Objetivos Logrados
+
+? Llenar DataGridView con productos
+? Buscar por código de barras
+? Descontinuar productos
+? Actualizar base de datos
+? Arquitectura profesional
+? Código seguro
+? Documentación completa
+
+---
+
+**¿Preguntas?** Consulta los archivos `.md`
+
+**¿Listo?** ¡Comienza con el Paso 1! ??
