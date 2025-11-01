@@ -13,8 +13,7 @@ namespace proyectoBddescontinuado
     public partial class FrmLista : Form
     {
         private DATOS.clsDaoProductos daoProductos;
-        private int productoSeleccionado = -1;
-
+        List<string> codigosLista = new List<string>();
         public FrmLista()
         {
             InitializeComponent();
@@ -28,15 +27,14 @@ namespace proyectoBddescontinuado
 
         private void btnDescontinuar_Click(object sender, EventArgs e)
         {
-            if (dgvProductos.SelectedRows.Count > 0)
+            if (dgvProductos.Rows.Count > 0)
             {
-                int idProducto = int.Parse(dgvProductos.SelectedRows[0].Cells["idProducto"].Value.ToString());
-
-                if (MessageBox.Show("¿Desea descontinuar este producto?", "Confirmación", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("¿Desea descontinuar estos productos?", "Confirmación", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    if (daoProductos.DescontinuarProducto(idProducto))
+                    if (daoProductos.DescontinuarProducto(codigosLista))
                     {
                         MessageBox.Show("Producto descontinuado exitosamente");
+                        DATOS.clsLlenarDataGridView.LimpiarDataGridView(dgvProductos);
                     }
                     else
                     {
@@ -59,23 +57,13 @@ namespace proyectoBddescontinuado
                 {
                     POJOS.clsProductos p = daoProductos.ObtenerProductoPorCodigo(codigo);
                     if (p == null)
-                    {
-                        MessageBox.Show("Producto NO encontrado");
+                    {   
+                        MessageBox.Show("Producto NO encontrado "+codigo);
                     }
                     else
                     {
-                        MessageBox.Show($"Producto encontrado: {p.nombreProducto}");
-
-                        // Buscar y seleccionar la fila correspondiente
-                        foreach (DataGridViewRow row in dgvProductos.Rows)
-                        {
-                            if (row.Cells["codigoBarras"].Value.ToString() == codigo)
-                            {
-                                dgvProductos.CurrentCell = row.Cells[0];
-                                row.Selected = true;
-                                break;
-                            }
-                        }
+                        DATOS.clsLlenarDataGridView.LlenarProductos(dgvProductos, p);
+                        codigosLista.Add(codigo);
                     }
                 }
                 txtBarras.Clear();

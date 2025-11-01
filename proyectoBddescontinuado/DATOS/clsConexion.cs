@@ -4,21 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
-using System.Data.SqlClient;
+using MySqlConnector;
 
 namespace proyectoBddescontinuado.DATOS
 {
     public class clsConexion
     {
-        private SqlConnection conexion;
-        private string cadenaConexion = "Server=SERVIDOR;Database=BASEDATOS;User Id=USUARIO;Password=CONTRASEÑA;";
+        private MySqlConnection conexion;
+        private string cadenaConexion = "Server=localhost;Database=prodDesc;User Id=root;Password=1234;";
 
         /// <summary>
         /// Constructor que inicializa la conexión
         /// </summary>
         public clsConexion()
         {
-            conexion = new SqlConnection(cadenaConexion);
+            conexion = new MySqlConnection(cadenaConexion);
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace proyectoBddescontinuado.DATOS
                 }
                 return false;
             }
-            catch (SqlException ex)
+            catch (MySqlException ex)
             {
                 System.Windows.Forms.MessageBox.Show("Error al conectar: " + ex.Message);
                 return false;
@@ -56,7 +56,7 @@ namespace proyectoBddescontinuado.DATOS
                 }
                 return false;
             }
-            catch (SqlException ex)
+            catch (MySqlException ex)
             {
                 System.Windows.Forms.MessageBox.Show("Error al cerrar: " + ex.Message);
                 return false;
@@ -66,7 +66,7 @@ namespace proyectoBddescontinuado.DATOS
         /// <summary>
         /// Retorna la conexión actual
         /// </summary>
-        public SqlConnection ObtenerConexion()
+        public MySqlConnection ObtenerConexion()
         {
             return conexion;
         }
